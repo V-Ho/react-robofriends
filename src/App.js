@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import CardList from './CardList'
 import { robots } from './robots'
 import SearchBox from './SearchBox'
+import Scroll from './Scroll'
 
 /*
 App has 2 states: robots & searchfield
@@ -19,6 +20,7 @@ class App extends Component {
         }
     }
 
+    // update state with componentDidMount when prop changes, repaints virtual DOM
     componentDidMount() {
         fetch('https://jsonplaceholder.typicode.com/users')
         .then(res => res.json())
@@ -44,7 +46,9 @@ class App extends Component {
                 <div className='tc'>
                     <h1>Robofriends</h1>
                     <SearchBox searchChange={this.onSearchChange}/>
-                    <CardList robots={filteredRobots}/>
+                    <Scroll>
+                        <CardList robots={filteredRobots}/>
+                    </Scroll>
                 </div>
             )
         }
