@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import CardList from './CardList'
 import * as serviceWorker from './serviceWorker';
 import 'tachyons'
-import App from './App'
+import App from './containers/App'
 
 ReactDOM.render(
       <App/>,
