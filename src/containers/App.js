@@ -1,9 +1,22 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import CardList from '../components/CardList'
-import { robots } from '../robots'
 import SearchBox from '../components/SearchBox'
 import Scroll from '../components/Scroll'
 import ErrorBoundary from '../components/ErrorBoundary'
+import { setSearchField } from '../actions'
+
+const mapStateToProps = state => {
+    return {
+        searchfield: state.searchfield
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+   return { 
+       onSearchChange: (event) => dispatch(setSearchField(event.target.value)) 
+    }
+}
 
 /*
 App has 2 states: robots & searchfield
@@ -17,12 +30,12 @@ class App extends Component {
         super()
         this.state = {
             robots: [],
-            searchfield: ''
         }
     }
 
     // update state with componentDidMount when prop changes, repaints virtual DOM
     componentDidMount() {
+        // console.log(this.props.store.getState())
         fetch('https://jsonplaceholder.typicode.com/users')
         .then(res => res.json())
         .then(users => this.setState({ robots: users }))
@@ -35,7 +48,8 @@ class App extends Component {
         
     }
     render () {
-        const { robots, searchfield } = this.state
+        const { robots } = this.state
+        const { searchfield, onSearchChange } = this.props
         const filteredRobots = robots.filter(robot => {
             return robot.name.toLowerCase().includes(searchfield.toLowerCase())
         })
@@ -46,7 +60,7 @@ class App extends Component {
            (
                 <div className='tc'>
                     <h1>Robofriends</h1>
-                    <SearchBox searchChange={this.onSearchChange}/>
+                    <SearchBox searchChange={onSearchChange}/>
                     <Scroll>
                     
                         <ErrorBoundary>
@@ -58,5 +72,6 @@ class App extends Component {
         
     }
 }
-
-export default App
+// connect is higher order function (returns another function -> App)
+// subscribes to any changes in redux store, gives props to App
+export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -10,7 +10,7 @@ import { searchRobots } from './reducers';
 
 const store = createStore(searchRobots)
 
-// Pass in store as a prop to Provider component to get state
+// Pass in store as a prop to Provider component, which provides store to components
 ReactDOM.render(
       <Provider store={store}>
         <App />
