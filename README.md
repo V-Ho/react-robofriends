@@ -1,5 +1,10 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## About this project
+This is a create-react-app project using redux to search through profiles of robots. 
+You can see the deployed project at: https://vho-robofriends-react-app.herokuapp.com/
+
+
 ## Available Scripts
 
 In the project directory, you can run:
